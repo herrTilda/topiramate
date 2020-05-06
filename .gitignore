@@ -1,0 +1,6 @@
+*.asv
+*.mex*
+Log/*
+bilder/*
+plot hybrid/*
+*.out

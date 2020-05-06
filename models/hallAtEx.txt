@@ -1,0 +1,183 @@
+********** MODEL NAME
+hallAtEx
+
+********** MODEL NOTES
+Changed EE so more similar to Hall 2
+AT = as in Hall 2 (T)
+********** MODEL STATES
+%% hall
+d/dt(G) = v1/rhog
+d/dt(ECF) = v2
+d/dt(F) = (1-v3)*(k1-v1)/rhof
+d/dt(L) = v3*(k1-v1)/rhol
+d/dt(AT) = v5
+d/dt(VLDL) = v8-v9
+d/dt(LF) = (v4+v6)/LF-v7
+
+%% hall+ (för att kunna lägga till topiramate)
+d/dt(modTime) =1
+d/dt(topiramate) = 0
+d/dt(D)= 0 
+  
+G(0) = 0
+ECF(0) = 0
+F(0) = 0
+L(0) = 0
+AT(0) = 0
+VLDL(0) = 2.8
+LF(0) = 16
+
+modTime(0) = 0
+topiramate(0) = 1
+D(0)= 70000
+ 
+********** MODEL PARAMETERS
+p1=0
+p2=0
+p3=0
+p4=0
+p5=0
+p6=0
+p7=0
+p8=0
+p9=0
+p10=0
+p11=0
+p12=0
+p13=0
+p14=0
+p15=0
+p16=0
+p17=0
+p18=0
+p19=0
+p20=0
+p21=0
+p22=0
+p23=0
+p24=0
+p25=0
+
+BWinit = 101 
+height = 0
+age = 0
+
+RMRinit = 0
+Ginit = 0
+ECFinit = 0
+Finit = 0
+Linit = 0
+ATinit = 0
+
+pt = 0
+delta = 0
+u = 0
+sigma = 0
+bAT1 = 0.7
+bAT2 = 0.7
+gff = 0
+
+alfa = 1
+
+k2 = 0.13
+k3 = 8.5
+k4 = 5.2
+k5 = 0.01
+k6 = 946
+k7 = 251
+k8 = 988
+k9 = 11
+k10 = 0.37
+k11 = 0.03
+k12 = 0.1
+
+insRes=1
+
+EIrestriction2 = 0  
+  
+scale1 = 0.0010
+scale2 = 0.0000
+scaleLF = 1000000
+
+
+********** MODEL VARIABLES
+%% if not input
+%% delta = ((1 - bTEF)*PAE - 1)*RMRinit/BWinit % physical activity
+%%Finit = BWinit*(0.14*age+37.31*log(BWinit/height*height)-103.94)/100
+%%Linit =  BWinit - (Finit + Ginit + 2.7*Ginit + ECFinit)
+
+fCIn = 0.4
+PAE = delta*(1+sigma*AT)*BW + u*BW
+rhol = 7.6e6
+rhof = 39.5e6
+gf = 13000
+gl = 92000
+etal = 960000
+etaf = 750000
+tAT = 7
+rhog = 17.6e6
+Na = 3.22
+epNa = 3000
+epCI = 4000
+deltaNaDiet = 0
+bTEF = 0.1
+
+CC = 10.4*rhol/rhof
+p = CC/(CC+F)
+EEinit = PAE*RMRinit
+EIninit = EEinit
+CIninit = fCIn*EIninit
+kg = CIninit/(Ginit*Ginit)
+EIrestriction1 = EIrestriction2*4183
+EInvalue = EIninit+EIrestriction1
+EIn = (1-alfa)*EIninit+alfa*EInvalue-alfa*pt*plasmakonc
+CInvalue = fCIn*EInvalue
+CIn = (1-alfa)*CIninit+alfa*CInvalue
+PAL = PAE
+
+BW = (F + L + (1 + 2.7)*G + ECF)
+
+TEF = bTEF*(EIn-EIninit)
+KK = EEinit-(gf*Finit+gl*Linit+delta*BWinit)
+RMR = RMRinit + gff*(1+(1-sigma)*AT)
+
+EE = TEF + PAE + RMR
+
+k1 = EIn-EE
+glucose_intake = EIn*1000*alfa/4184/4*0.45
+F_norm = F/(F+L+167)
+L_norm = (L+167)/(F+L+167)
+
+Food_glucose=EIn/4184/4*0.45
+
+dosage=interpcsIQM([0,7,14,21,28,35,42,49,56,63,70,77,84,91,98,105,112,119,126,133,140,147,154,161,168],[p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20,p21,p22,p23,p24,p25],time)
+plasmakonc = 0.019*dosage - 0.3
+
+********** MODEL REACTIONS
+
+%% hall
+v1 = CIn-kg*(G)^2
+v2 = (deltaNaDiet-epNa*(ECF-ECFinit)-epCI*(1-CIn/CIninit))/Na
+v3 = p
+v4 = fCIn*insRes*F*k2
+v5 = (bAT1*(EIn/EIninit)-AT)/tAT
+v6 = k3*fCIn*insRes*EIn/scaleLF
+v7 = k4/((fCIn*insRes+k9)*k5)*LF/(LF+k8)
+v8 = k10*(1+fCIn*k6/(VLDL+k7))
+v9 = k11*(1+VLDL/k12)
+
+nutrition=Food_glucose*1000
+
+********** MODEL FUNCTIONS
+
+
+********** MODEL EVENTS
+event 1 = gt(EIn,EIninit),bAT1,bAT2 
+event 2 = gt(EIninit,EIn),bAT1,bAT1 
+% event 7 = gt(modTime,1), modTime, 0
+% event 8 = gt(time,10)opiramate, 1
+
+
+********** MODEL MATLAB FUNCTIONS
+
+

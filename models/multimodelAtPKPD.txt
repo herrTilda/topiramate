@@ -1,0 +1,426 @@
+********** MODEL NAME
+ multimodelAtPKPD
+
+********** MODEL NOTES
+
+AT = as in Hall 2 (T)
++ PKPD-model for topiramate
+
+********** MODEL STATES
+%% dallaman
+d/dt(Gp) = (EGP+Ra-E-U_ii-k_1*Gp+k_2*Gt)*24*60                                         
+d/dt(Gt) = ((-U_id)+k_1*Gp-k_2*Gt)*24*60                                                
+d/dt(Il) = ((-m_1*Il)-m_3*Il+m_2*Ip+S)*24*60                                           
+d/dt(Ip) = ((-m_2*Ip)-m_4*Ip+m_1*Il)*24*60                                             
+d/dt(Qsto1) = (-k_gri*Qsto1)*24*60                                                      
+d/dt(Qsto2) = ((-k_emdosage*Qsto2)+k_gri*Qsto1)*24*60                                        
+d/dt(Qgut) = ((-k_abs*Qgut)+k_emdosage*Qsto2)*24*60                                         
+d/dt(I1) = (-k_i*(I1-I))*24*60                                                           
+d/dt(Id) = (-k_i*(Id-I1))*24*60                                                  
+d/dt(INS) = ((-p_2U*INS)+p_2U*(I-I_b))*24*60                                               
+d/dt(Ipo) = ((-gamma*Ipo)+S_po)*24*60                                                    
+d/dt(Y) = (-alpha*(Y-beta*(G_d-G_b)))*24*60    
+
+%% hall
+d/dt(G) = v1/rhog  
+d/dt(ECF) = v2
+d/dt(F) = (1 - v3)*(k1 - v1)/rhof
+d/dt(L) = v3*(k1 - v1)/rhol
+d/dt(AT) = v5
+
+%% hall+ (för att kunna lägga till topiramate)
+d/dt(modTime) =1
+d/dt(topiramate) = 0
+d/dt(D)= 0 
+
+%% brännmark
+d/dt(IR)                = (-v1a-v1basal+v1r+v1g)*24*60    %% 
+d/dt(IRp)               = (v1basal+v1c-v1d-v1g)*24*60     %%
+d/dt(IRins)             = (v1a-v1c)*24*60                 %%
+d/dt(IRip)              = (v1d-v1e)*24*60                 %%
+d/dt(IRi)               = (v1e-v1r)*24*60                 %%
+d/dt(IRS1)              = (v2b+v2g-v2a-v2basal)*24*60     %%
+d/dt(IRS1p)             = (v2a+v2d-v2b-v2c)*24*60         %%
+d/dt(IRS1p307)          = (v2c-v2d-v2f)*24*60             %%
+d/dt(IRS1307)           = (v2basal+v2f-v2g)*24*60         %%
+d/dt(X)                 = (v3b-v3a)*24*60                 %%
+d/dt(Xp)                = (v3a-v3b)*24*60                 %%
+d/dt(PKB)               = (-v4a+v4b+v4h)*24*60            %%   
+d/dt(PKB308p)           = (v4a-v4b-v4c)*24*60             %%
+d/dt(PKB473p)           = (-v4e+v4f-v4h)*24*60            %%
+d/dt(PKB308p473p)       = (v4c+v4e-v4f)*24*60             %%
+d/dt(mTORC1)            = (v5b-v5a)*24*60                 %%         
+d/dt(mTORC1a)           = (v5a-v5b)*24*60                 %%
+d/dt(mTORC2)            = (-v5c+v5d)*24*60                %%
+d/dt(mTORC2a)           = (v5c-v5d)*24*60                 %%
+d/dt(AS160)             = (v6b1-v6f1)*24*60               %%
+d/dt(AS160p)            = (v6f1-v6b1)*24*60               %%
+d/dt(GLUT4m)            = (v7f-v7b)*24*60                 %%
+d/dt(GLUT4)             = (-v7f+v7b)*24*60                %%
+d/dt(S6K)               = (v9b1-v9f1)*24*60               %%
+d/dt(S6Kp)              = (v9f1-v9b1)*24*60               %%
+d/dt(S6)                = (v9b2-v9f2)*24*60               %%
+d/dt(S6p)               = (v9f2-v9b2)*24*60               %%
+%%
+                                                                                          
+Gp(0) = 165.9696                                                                     
+Gt(0) = 146.0837                                                                     
+Il(0) = 4.4166                                                                     
+Ip(0) = 1.4578                                                                    
+Qsto1(0) = 0                                                               
+Qsto2(0) = 0                                                                    
+Qgut(0) = 0                                                                     
+I1(0) = 28.1373                                                                      
+Id(0) = 28.0116                                                                      
+INS(0) = 0                                                                       
+Ipo(0) = 3.2630                                                    
+Y(0) = 0
+
+G(0) = 1
+ECF(0) = 1
+F(0) = 1
+L(0) = 1
+AT(0) = 1
+
+modTime(0) = 0
+topiramate(0) = 1
+D(0)= 70000
+
+%%
+IR(0)               = 100
+IRp(0)              = 0
+IRins(0)            = 0          
+IRip(0)             = 0
+IRi(0)              = 0 
+IRS1(0)             = 100
+IRS1p(0)            = 0
+IRS1p307(0)         = 0
+IRS1307(0)          = 0
+X(0)                = 100
+Xp(0)               = 0
+PKB(0)              = 100
+PKB308p(0)          = 0
+PKB473p(0)          = 0
+PKB308p473p(0)      = 0
+mTORC1(0)           = 100
+mTORC1a(0)          = 0
+mTORC2(0)           = 100
+mTORC2a(0)          = 0
+AS160(0)            = 100
+AS160p(0)           = 0
+GLUT4m(0)           = 0
+GLUT4(0)            = 100
+
+S6K(0)              = 100
+S6Kp(0)             = 0
+S6(0)               = 100
+S6p(0)              = 0
+%%
+ 
+********** MODEL PARAMETERS
+p1=0
+p2=0
+p3=0
+p4=0
+p5=0
+p6=0
+p7=0
+p8=0
+p9=0
+p10=0
+p11=0
+p12=0
+p13=0
+p14=0
+p15=0
+p16=0
+p17=0
+p18=0
+p19=0
+p20=0
+p21=0
+p22=0
+p23=0
+p24=0
+p25=0
+
+BWinit = 101 
+height = 0
+age = 0
+
+RMRinit = 0
+Ginit = 0
+ECFinit = 0
+Finit = 0
+Linit = 0
+ATinit = 0
+
+Imax = 1
+delta = 0
+u = 0
+sigma = 0
+bAT1 = 0.7
+bAT2 = 0.7
+h = 1
+IC50 = 0
+
+alfa = 1
+
+insRes=1
+
+EIrestriction2 = 0  
+
+V_G = 1.88  %%47                                                                 
+k_1 = 0.065  %%48                                                                
+k_2 = 0.079  %%49                                                                
+G_b = 95  %%50                                                                   
+V_I = 0.05  %%51                                                                 
+m_1 = 0.19  %%52                                                                 
+m_2 = 0.484    %% 53                                                                  
+m_4 = 0.194    %% 54                                                                  
+m_5 = 0.0304  %%55                                                               
+m_6 = 0.6471   %% 56                                                                  
+HE_b = 0.6  %%57                                                                 
+I_b = 25  %%58                                                                   
+S_b = 1.8  %%59                                                                  
+k_max = 0.0558  %%60                                                             
+k_min = 0.008  %%61                                                              
+k_abs = 0.057  %%62                                                              
+k_gri = 0.0558  %%63                                                             
+f = 0.9  %%64                                                                    
+b = 0.82  %%65                                                                   
+d = 0.01  %%66                                                                   
+V_m0 = 2.5 %% 67                                                               
+k_p1 = 2.7  %%68                                                                 
+k_p2 = 0.0021  %%69                                                              
+k_p3 = 0.009  %%70                                                               
+k_p4 = 0.0618  %%71                                                              
+k_i = 0.0079  %%72                                                               
+U_ii = 1.47  %%73                                                                
+V_l0 = 2.5     %% 74                                                                  
+V_mX = 0.047  %%75                                                               
+K_l0 = 225.59  %%76                                                              
+V_f0 = 2.5  %%77                                                                 
+V_fX = 0.047  %%78                                                               
+K_f0 = 225.59  %%79                                                              
+p_2U = 0.0331  %%80                                                              
+part = 0.2  %%81                                                                 
+K = 2.3  %%82                                                                    
+alpha = 0.05  %%83                                                               
+beta = 0.11  %%84                                                                
+gamma = 0.5  %%85                                                                
+k_e1 = 0.0005  %%86                                                              
+k_e2 = 339  %%87   
+K_m0 = 225.59 %% 89                                                                    
+
+%% Brännmark
+diabetes = 1  %%1                                                                
+k1a = 0.633141  %%2                                                              
+k1basal = 0.0331338  %%3                                                         
+k1c = 0.876805  %%4                                                              
+k1d = 31.012  %%5                                                                
+k1f = 1839.58  %%6                                                               
+k1g = 1944.11  %%7                                                               
+k1r = 0.547061  %%8                                                              
+k2a = 3.22728  %%9                                                               
+k2c = 5758.78  %%10                                                              
+k2basal = 0.0422768  %%11                                                        
+k2b = 3424.35  %%12                                                              
+k2d = 280.753  %%13                                                              
+k2f = 2.9131  %%14                                                               
+k2g = 0.267089  %%15                                                             
+k3a = 0.00137731  %%16                                                           
+k3b = 0.0987558  %%17                                                            
+k4a = 5790.17  %%18                                                              
+k4b = 34.7965  %%19                                                              
+k4c = 4.45581  %%20                                                              
+k4e = 42.8395  %%21                                                              
+k4f = 143.597  %%22                                                              
+k4h = 0.536145  %%23                                                             
+k5a1 = 1.8423  %%24                                                              
+k5a2 = 0.055064  %%25                                                            
+k5b = 24.826  %%26                                                               
+k5d = 1.06013  %%27                                                              
+km5 = 2.64988  %%28                                                              
+k5c = 0.0857515  %%29                                                            
+k6f1 = 2.65168  %%30                                                             
+k6f2 = 36.9348  %%31                                                             
+km6 = 30.5424  %%32                                                              
+n6 = 2.13707  %%33                                                               
+k6b = 65.1841  %%34                                                              
+k7f = 50.9829  %%35                                                              
+k7b = 2285.97  %%36                                                              
+k8 = 724.242  %%37                                                               
+glut1 = 7042.19  %%38                                                            
+k9f1 = 0.12981  %%39                                                             
+k9b1 = 0.0444092  %%40                                                           
+k9f2 = 3.3289  %%41                                                              
+k9b2 = 30.9967  %%42                                                             
+km9 = 5872.68  %%43                                                              
+n9 = 0.985466  %%44                                                              
+kbf = 1e+06  %%45                                                                
+scaleModel = 2.1e-06  %%46  
+
+%% multi-level stuff   
+scale1 = 1e-3
+scale2 = 3e-6
+
+%% meal stuff (no effect on weight)
+breakfast=0.2
+lunch=0.4
+dinner=0.4
+
+********** MODEL VARIABLES
+%% hall
+fCIn = 0.4
+PAE = 1.5
+rhol = 7.6e6
+rhof = 39.5e6
+gf = 13000
+gl = 92000
+etal = 960000
+etaf = 750000
+tAT = 7
+rhog = 17.6e6
+Na = 3.22
+epNa = 3000
+epCI = 4000
+deltaNaDiet = 0
+bTEF = 0.1
+
+CC = 10.4*rhol/rhof
+p = CC/(CC+F)
+EEinit = PAE*RMRinit
+EIninit = EEinit
+CIninit = fCIn*EIninit
+kg = CIninit/(Ginit*Ginit)
+EIrestriction1 = EIrestriction2*4183
+EInvalue = EIninit+EIrestriction1
+EIn = (1-alfa)*EIninit+alfa*(EInvalue*(1-Imax*(C^h/(C^h+IC50^h))))
+CInvalue = fCIn*EInvalue
+CIn = (1-alfa)*CIninit+alfa*CInvalue
+PAL = PAE
+
+BW = (F + L + (1 + 2.7)*G + ECF)
+
+TEF = bTEF*(EIn-EIninit)
+KK = EEinit-(gf*Finit+gl*Linit+delta*BWinit)
+
+EE = (-BW*delta*rhof*rhol-KK*rhof*rhol-rhof*rhol*TEF-rhof*rhol*AT+etal*p*rhof*CIn+etaf*rhol*CIn-etaf*p*rhol*CIn-etal*p*rhof*EIn-etaf*rhol*EIn+etaf*p*rhol*EIn-gf*rhof*rhol*F-etal*kg*p*rhof*G*G-etaf*kg*rhol*G*G+etaf*kg*p*rhol*G*G-gl*rhof*rhol*L)/(-etal*p*rhof-etaf*rhol+etaf*p*rhol-rhof*rhol)
+
+k1 = EIn-EE
+glucose_intake = EIn*1000*alfa/4184/4*0.45
+F_norm = F/(F+L+167)
+L_norm = (L+167)/(F+L+167)
+
+Food_glucose=EIn/4184/4*0.45
+
+dosage=interpcsIQM([0,7,14,21,28,35,42,49,56,63,70,77,84,91,98,105,112,119,126,133,140,147,154,161,168],[p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20,p21,p22,p23,p24,p25],time)
+C = 0.019*dosage - 0.3
+
+%%
+IR_P        = IRp + IRip
+IRS1_P  	= IRS1p + IRS1p307
+IRS1_P307	= IRS1p307 + IRS1307
+PKB_P308	= PKB308p+PKB308p473p           
+PKB_P473	= PKB473p+PKB308p473p
+AS160_P 	= AS160p 
+mTORClact	= mTORC1a
+mTORC2act   = mTORC2a
+S6K_P   	= S6Kp
+S6_P    	= S6p
+GLUT4pm     = GLUT4m
+%%
+
+********** MODEL REACTIONS
+%% dallaman
+aa = 5/2/(1-b)/D                                                              
+cc_d = 5/2/d/D                                                                     
+EGP = k_p1-k_p2*Gp-k_p3*Id-k_p4*Ipo                                           
+V_mmax = L_norm*(V_m0+V_mX*INS)                                                
+V_fmax = F_norm*(V_f0+V_fX*INS)                                                    
+E = 0                                                                            
+S = gamma*Ipo                                                                                                                       
+I = Ip/V_I                                                                      
+G_d = Gp/V_G                                                                      
+HE = (-m_5*S)+m_6                                                                
+m_3 = HE*m_1/(1-HE)                                                              
+Q_sto = Qsto1+Qsto2                                                            
+Ra = f*k_abs*Qgut/BW                                                           
+k_emdosage = k_min+(k_max-k_min)/2*(tanh(aa*(Q_sto-b*D))-tanh(cc_d*(Q_sto-d*D))+2)     
+U_idm = V_mmax*Gt/(K_m0+Gt)
+U_idf = (scale2*(k8*GLUT4m*Gt*5/170 + glut1*Gt*5/170 + kbf*(INS*scale1)))                                              
+U_id = U_idm+U_idf                                                               
+U = U_ii+U_id                                                                    
+S_po = Y+K*(EGP+Ra-E-U_ii-k_1*Gp+k_2*Gt)/V_G+S_b 
+
+plasmaGlucose = G_d
+plasmaInsulin = I
+endogenousGlucoseProduction = EGP
+glucoseRateOfAppearance = Ra
+glucoseUdosageake = U
+insulinSecretion = S
+
+%% hall
+v1 = (CIn - kg*(G)^2)
+v2 = (1/Na)*(deltaNaDiet - epNa*(ECF - ECFinit) - epCI*(1 - CIn/CIninit)) 
+v3 = p
+v5 = (bAT1*(EIn/EIninit)-AT)/tAT
+
+nutrition=Food_glucose*1000
+
+%% brännmark
+v1a      = IR*k1a*(INS*scale1)
+v1basal  = k1basal*IR
+v1c      = IRins*k1c
+v1d      = IRp*k1d
+v1e      = IRip*k1f*Xp
+v1g      = IRp*k1g
+v1r      = IRi*k1r
+v2a      = IRS1*k2a*IRip
+v2b      = IRS1p*k2b
+v2c      = IRS1p*k2c*mTORC1a*diabetes
+v2d      = IRS1p307*k2d
+v2f 	 = IRS1p307*k2f
+v2basal  = IRS1*k2basal
+v2g 	 = IRS1307*k2g
+v3a      = X*k3a*IRS1p
+v3b      = Xp*k3b
+
+v5a      = mTORC1*(k5a1*PKB308p473p+k5a2*PKB308p)
+v5b      = mTORC1a*k5b
+v5c      = mTORC2*k5c*IRip
+v5d      = k5d*mTORC2a
+v4a      = k4a*PKB*IRS1p
+v4b      = k4b*PKB308p
+v4c      = k4c*PKB308p*mTORC2a
+v4e      = k4e*PKB473p*IRS1p307
+v4f      = k4f*PKB308p473p
+v4h      = k4h*PKB473p
+
+v6f1     = AS160*(k6f1*PKB308p473p+k6f2*PKB473p^n6/(km6^n6+PKB473p^n6))
+v6b1     = AS160p*k6b
+v7f      = GLUT4*k7f*AS160p
+v7b      = GLUT4m*k7b
+
+v9f1     = S6K*k9f1*mTORC1a^n9/(km9^n9+mTORC1a^n9)
+v9b1     = S6Kp*k9b1
+v9f2     = S6*k9f2*S6Kp
+v9b2     = S6p*k9b2
+
+********** MODEL FUNCTIONS
+
+
+********** MODEL EVENTS
+event 1 = gt(modTime,0.25), Qsto1, Qsto1+(nutrition*breakfast)
+event 2 = gt(modTime,0.249), D, 1+nutrition*breakfast 
+
+event 3 = gt(modTime,0.50), Qsto1, Qsto1+(nutrition *lunch)
+event 4 = gt(modTime,0.499), D, 1+nutrition*lunch
+
+event 5 = gt(modTime,0.75), Qsto1, Qsto1+(nutrition*dinner)
+event 6 = gt(modTime,0.749), D, 1+nutrition*dinner
+
+********** MODEL MATLAB FUNCTIONS
+
+
