@@ -1,6 +1,5 @@
 function [] =  EstimateParameters(worker,folderName)
-worker=1;
-folderName='';
+
  s=rng('shuffle'); %do not note remove this line
  s=rng(s.Seed+worker); %do not note remove this line
 
