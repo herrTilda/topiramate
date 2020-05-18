@@ -3,7 +3,7 @@ hallAt
 
 ********** MODEL NOTES
 
-AT = as in Hall 2 (T)
+AT = as in Hall 2 (T here)
 ********** MODEL STATES
 %% hall
 d/dt(G) = v1/rhog

@@ -4,6 +4,7 @@ hallAtEx
 ********** MODEL NOTES
 Changed EE so more similar to Hall 2
 AT = as in Hall 2 (T)
+
 ********** MODEL STATES
 %% hall
 d/dt(G) = v1/rhog
