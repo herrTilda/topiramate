@@ -1,9 +1,9 @@
 
-function cost = cost_fun(EXPDATA,model,params,fid)
+function cost = cost_fun(EXPDATA,model,params,fid,paramsAll,inits,pNames)
 
 limit=chi2inv(0.95,length(EXPDATA.time));
 
-ySim=simulate_model(EXPDATA,model,params);
+ySim=simulate_model(EXPDATA,model,params,paramsAll,inits,pNames);
 cost = nansum((((EXPDATA.weight'-ySim).^2)./(1.^2)')); 
 
 if cost< limit 

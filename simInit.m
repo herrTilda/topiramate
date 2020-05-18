@@ -1,5 +1,5 @@
 
-function [paramsAll,inits]=simInit(paramsOpt,paramsAll,dosage,initInput)
+function [paramsAll,inits]=simInit(paramsAll,dosage,initInput)
 % calculating initial values and inserting parameters to optimize at
 % correct place
 
@@ -19,7 +19,7 @@ ECFinit = 0.7*0.235*BWinit;
 Linit = BWinit - (Finit + Ginit + 2.7*Ginit + ECFinit);
 ATinit = 0;
 
-BW = round(Finit + Linit + (1 + 2.7)*Ginit + ECFinit);
+BW = round(Finit + Linit + (1 + 2.7)*Ginit + ECFinit,1);
 if BW ~= BWinit
    disp("initials don't add up to initial BW") 
 end
@@ -29,9 +29,5 @@ inits = [Ginit ECFinit Finit Linit ATinit];
 % EIrestriction1 = EIrestriction2*4.183*10^3;
 
 paramsAll(26:34)=[initInput RMRinit inits];
-
-if ~isempty(paramsOpt)
-paramsAll(35:(34+length(paramsOpt)))=paramsOpt;
-end
 
 end

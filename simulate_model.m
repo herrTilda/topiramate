@@ -1,10 +1,11 @@
 
-function ySim = simulate_model(EXPDATA, model, params)
+function ySim = simulate_model(EXPDATA, model, paramsOpt,paramsAll,inits,pNames)
 
 try
-   [pNames,paramsAll]=IQMparameters(model);
-   [paramsAll,inits]=simInit(params,paramsAll,EXPDATA.dosage,...
-   [EXPDATA.weight(1) EXPDATA.height EXPDATA.age]);
+   if ~isempty(paramsOpt)
+    paramsAll(35:(34+length(paramsOpt)))=paramsOpt;
+   end
+   
    paramsAll(ismember(pNames,'BWinit'))=EXPDATA.weight(1);
    paramsAll(ismember(pNames,'EIrestriction2'))=0;  
    [initsAll] = simulateSteadyState(model,paramsAll,pNames,inits);
