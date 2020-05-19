@@ -2,15 +2,19 @@ function [] =  EstimateParameters(worker,folderName)
 
  s=rng('shuffle'); %do not note remove this line
  s=rng(s.Seed+worker); %do not note remove this line
+ 
+ if nargin<2 || isempty(folderName)
+    folderName='Temp';
+ end
 
 % Add whatever paths/toolboxes you need.
 addpath(genpath('../MATLAB/IQMtools/'))
 addpath('../MATLAB')
 addpath('./models')
-addpath('./DATA')
+addpath('./data')
 
 % get names of all models to try
-cd Models
+cd models
 models=dir('*.txt');
 cd ..
 
@@ -20,7 +24,8 @@ for k = 1:length(models)
 % model_name='hallAt';
 % make model and foldername
 model=str2func(model_name);
-folder=sprintf('./results/%s/',model_name,folderName);
+
+folder=sprintf('./results/%s/%s/%s/',model_name,folderName);
 
 for d=["topiramate192","topiramate96","topiramate64","placebo"]
 % d="placebo";
@@ -40,7 +45,7 @@ ub = repmat(log(1e9),1,nparams);
 lb = -ub;
 
 % where to save
-fid = fopen(sprintf('%s/validParams%img-%i.csv',folder,EXPDATA.dosage(end),worker),'w+');
+fid = fopen(sprintf('%s/validParams%img-%i.csv',folder,EXPDATA.dosage(end),s.Seed),'wt');
 % fid = fopen([model_name,'_all_good_parameters.csv'],'w+');
 
 % optimize
@@ -51,7 +56,7 @@ costfunc = @(p) cost_fun(EXPDATA,model,p,fid,paramsAll,inits,pNames);
 fclose(fid);
 
 % save results
-save(sprintf('%s/opt(%.5f)%img-%i.mat',folder,mincost,EXPDATA.dosage(end),worker) ,'optParam')
+save(sprintf('%s/opt(%.5f)%img-%i.mat',folder,mincost,EXPDATA.dosage(end),s.Seed) ,'optParam')
 
 %% plot
 % plot_stuff(EXPDATA,model_name,optParam,folder,dosage(d,end),worker);
