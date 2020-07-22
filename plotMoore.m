@@ -1,5 +1,5 @@
 
-function []=plot_other_stuff(sim,model,titel)
+function []=plotMoore(sim,model,titel)
 % -----------------------cell signaling------------------------------
 
 % -----------------------plasma glucose------------------------------
@@ -71,5 +71,72 @@ subplot(2,3,6)
 set(0,'DefaultLineLineWidth',2)
 plot(sim.time, sim.variablevalues(:,ismember(IQMvariables(model),'EInvalue')))
 legend('EInvalue')
+
+
+figure()
+set(0,'DefaultLineLineWidth',2)
+sgtitle(titel)
+subplot(2,3,1)
+plot(sim.time, sim.variablevalues(:,ismember(IQMvariables(model),'EE')))
+legend('KK')
+
+subplot(2,3,2)
+set(0,'DefaultLineLineWidth',2)
+plot(sim.time, sim.variablevalues(:,ismember(IQMvariables(model),'EIn')))
+legend('TEF')
+
+subplot(2,3,3)
+set(0,'DefaultLineLineWidth',2)
+plot(sim.time, sim.variablevalues(:,ismember(IQMvariables(model),'CIn')))
+legend('CC')
+
+subplot(2,3,4)
+set(0,'DefaultLineLineWidth',2)
+plot(sim.time, sim.variablevalues(:,ismember(IQMvariables(model),'dosage')))
+legend('p')
+
+subplot(2,3,5)
+set(0,'DefaultLineLineWidth',2)
+plot(sim.time, sim.variablevalues(:,ismember(IQMvariables(model),'EIrestriction1')))
+legend('kg')
+
+subplot(2,3,6)
+set(0,'DefaultLineLineWidth',2)
+plot(sim.time, sim.variablevalues(:,ismember(IQMvariables(model),'EInvalue')))
+legend('PAL')
+
+
+
+figure()
+set(0,'DefaultLineLineWidth',2)
+sgtitle(titel)
+subplot(2,3,1)
+plot(sim.time, sim.variablevalues(:,ismember(IQMvariables(model),'EE')))
+legend('EEinit')
+
+subplot(2,3,2)
+set(0,'DefaultLineLineWidth',2)
+plot(sim.time, sim.variablevalues(:,ismember(IQMvariables(model),'EIn')))
+legend('RMRinit')
+
+subplot(2,3,3)
+set(0,'DefaultLineLineWidth',2)
+plot(sim.time, sim.variablevalues(:,ismember(IQMvariables(model),'CIn')))
+legend('CIinit')
+
+subplot(2,3,4)
+set(0,'DefaultLineLineWidth',2)
+plot(sim.time, sim.variablevalues(:,ismember(IQMvariables(model),'dosage')))
+legend('p')
+
+subplot(2,3,5)
+set(0,'DefaultLineLineWidth',2)
+plot(sim.time, sim.variablevalues(:,ismember(IQMvariables(model),'EIrestriction1')))
+legend('kg')
+
+subplot(2,3,6)
+set(0,'DefaultLineLineWidth',2)
+plot(sim.time, sim.variablevalues(:,ismember(IQMvariables(model),'EInvalue')))
+legend('PAL')
 
 end

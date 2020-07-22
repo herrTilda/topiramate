@@ -1,20 +1,20 @@
 
-function ySim = simulate_model(EXPDATA, model, paramsOpt,paramsAll,inits,pNames)
+function sim = simulateAll(EXPDATA, model, paramsOpt,paramsAll,pNames)
 
 try
    if ~isempty(paramsOpt)
     paramsAll(35:(34+length(paramsOpt)))=paramsOpt;
    end
    
+   [paramsAll,inits]=simInit(paramsAll,EXPDATA.dosage,...
+       [EXPDATA.weight(1) EXPDATA.height EXPDATA.age]);
    [initsAll] = simulateSteadyState(model,paramsAll,pNames,inits);
-   paramsAll(ismember(pNames,'alfa'))=0;  
+   
    paramsAll(ismember(pNames,'EIrestriction2'))=-600; 
+   paramsAll(ismember(pNames,'alfa'))=1;  
    
    sim = model(EXPDATA.time, initsAll, paramsAll); 
-   %plot_other_stuff(sim)
-   ySim = sim.variablevalues(:,ismember(IQMvariables(model),'BW'))'; 
 catch error
    disp(getReport(error))
-   ySim=deal(inf*ones(size(EXPDATA.time))');
 end
 end

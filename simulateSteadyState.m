@@ -1,9 +1,9 @@
 function [initsAll] = simulateSteadyState(model, paramsAll,pNames,inits)
 
-simTimeEnd=20000000000000;
+simTimeEnd=2000;
 
    paramsAll(ismember(pNames,'EIrestriction2'))=0; 
-   paramsAll(ismember(pNames,'alfa'))=0; 
+   paramsAll(ismember(pNames,'alfa'))=1; 
    
    initsAll = IQMinitialconditions(model);
    initsAll(1:5) = inits; 

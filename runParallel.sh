@@ -14,7 +14,7 @@ module add gcc/8.2.0
 MATLAB='matlab -nodesktop -nodisplay -singleCompThread'
 # The name of the Matlab script (without .m)
 job=EstimateParameters()
-now=$(date '+%Y%m%d-%H%M%S')
+now=$(date '+%Y%m%d')
 
 # Setup things first. 
 ${MATLAB} -r "Setup(); exit"

@@ -1,7 +1,7 @@
 function []=Setup()
 %% Add IQM or other toolboxes NECESSARY FOR COMPILATION ONLY
 % 
-% run('../MATLAB/IQMtools/installIQMtoolsInitial.m')
+run('../MATLAB/IQMtools/installIQMtoolsInitial.m')
 addpath('./Models')
 addpath('./data')
 addpath('../MATLAB')

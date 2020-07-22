@@ -1,5 +1,5 @@
 ********** MODEL NAME
- multimodelAtPKPD
+multimodelAtPKPD
 
 ********** MODEL NOTES
 

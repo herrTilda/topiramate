@@ -11,8 +11,6 @@ d/dt(ECF) = v2
 d/dt(F) = (1-v3)*(k1-v1)/rhof
 d/dt(L) = v3*(k1-v1)/rhol
 d/dt(AT) = v5
-d/dt(VLDL) = v8-v9
-d/dt(LF) = (v4+v6)/LF-v7
 
 %% hall+ (för att kunna lägga till TopConc)
 d/dt(modTime) =1
@@ -24,8 +22,6 @@ ECF(0) = 0
 F(0) = 0
 L(0) = 0
 AT(0) = 0
-VLDL(0) = 2.8
-LF(0) = 16
 
 modTime(0) = 0
 TopConc(0) = 1
@@ -62,6 +58,8 @@ BWinit = 101
 height = 0
 age = 0
 
+EIrestriction2 = 0 
+
 RMRinit = 0
 Ginit = 0
 ECFinit = 0
@@ -69,40 +67,11 @@ Finit = 0
 Linit = 0
 ATinit = 0
 
-pt = 0
-delta = 0
-u = 0
-sigma = 0
+pt = 1
+delta = 1
 bAT1 = 0.7
 bAT2 = 0.7
-
-alfa = 1
-
-k2 = 0.13
-k3 = 8.5
-k4 = 5.2
-k5 = 0.01
-k6 = 946
-k7 = 251
-k8 = 988
-k9 = 11
-k10 = 0.37
-k11 = 0.03
-k12 = 0.1
-
-insRes=1
-
-EIrestriction2 = 0  
-  
-scale1 = 0.0010
-scale2 = 0.0000
-scaleLF = 1000000
-
-********** MODEL VARIABLES
-%% if not input
-%% delta = ((1 - bTEF)*PAE - 1)*RMRinit/BWinit % physical activity
-%%Finit = BWinit*(0.14*age+37.31*log(BWinit/height*height)-103.94)/100
-%%Linit =  BWinit - (Finit + Ginit + 2.7*Ginit + ECFinit)
+ 
 
 fCIn = 0.4
 PAE = 1.5
@@ -119,6 +88,14 @@ epNa = 3000
 epCI = 4000
 deltaNaDiet = 0
 bTEF = 0.1
+
+alfa = 1
+
+********** MODEL VARIABLES
+%% if not input
+%% delta = ((1 - bTEF)*PAE - 1)*RMRinit/BWinit % physical activity
+%%Finit = BWinit*(0.14*age+37.31*log(BWinit/height*height)-103.94)/100
+%%Linit =  BWinit - (Finit + Ginit + 2.7*Ginit + ECFinit)
 
 CC = 10.4*rhol/rhof
 p = CC/(CC+F)
@@ -153,15 +130,11 @@ plasmakonc = 0.019*dosage - 0.3
 ********** MODEL REACTIONS
 
 %% hall
-v1 = CIn-kg*(G)^2
+v1 = CIn-kg*(G)^2   
 v2 = (deltaNaDiet-epNa*(ECF-ECFinit)-epCI*(1-CIn/CIninit))/Na
 v3 = p
-v4 = fCIn*insRes*F*k2
 v5 = (bAT1*(EIn/EIninit)-AT)/tAT
-v6 = k3*fCIn*insRes*EIn/scaleLF
-v7 = k4/((fCIn*insRes+k9)*k5)*LF/(LF+k8)
-v8 = k10*(1+fCIn*k6/(VLDL+k7))
-v9 = k11*(1+VLDL/k12)
+
 
 nutrition=Food_glucose*1000
 
