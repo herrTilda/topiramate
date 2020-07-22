@@ -3,7 +3,7 @@ function ySim = simulate_model(EXPDATA, model, paramsOpt,paramsAll,inits,pNames)
 
 try
    if ~isempty(paramsOpt)
-    paramsAll(36:(34+length(paramsOpt)))=paramsOpt;
+    paramsAll(36:(35+length(paramsOpt)))=paramsOpt;
    end
    
    [initsAll] = simulateSteadyState(model,paramsAll,pNames,inits);
