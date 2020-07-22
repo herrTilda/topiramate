@@ -17,7 +17,7 @@ RMRinit = RMRinit*4.184*10^3; %from kcal to Joule
 Ginit = 0.5;
 ECFinit = 0.7*0.235*BWinit;
 Linit = BWinit - (Finit + Ginit + 2.7*Ginit + ECFinit);
-ATinit = 0;
+ATinit = 0.1;
 
 BW = round(Finit + Linit + (1 + 2.7)*Ginit + ECFinit,1);
 if BW ~= BWinit
